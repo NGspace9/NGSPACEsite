@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>NG Space - Um universo de possibilidades visuais</title>
+    <meta name="description" content="NG Space oferece soluções audiovisuais completas para eventos inesquecíveis, de painéis de LED a sonorização e iluminação profissional.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Ícones (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    
+    <!-- CSS da Galeria Lightbox -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
+
+    <!-- Estilos CSS (embutidos no HTML) -->
+    <style>
+        /* ==================== FONTES E VARIÁVEIS ==================== */
+        :root {
+          /* Cores */
+          --color-black: #000000;
+          --color-blue: #0055FF;
+          --color-red: #FF0000;
+          --color-white: #FFFFFF;
+          --color-dark-grey: #111111;
+          --color-text-grey: #cccccc;
+          
+          /* Tipografia */
+          --font-title: 'Orbitron', sans-serif;
+          --font-text: 'Montserrat', sans-serif;
+
+          /* Tamanhos de Fonte */
+          --h1-size: 48px;
+          --h2-size: 36px;
+          --h3-size: 28px;
+          --h4-size: 22px;
+          --text-size: 16px;
+          --legend-size: 14px;
+        }
+
+        /* ==================== BASE ==================== */
+        * {
+          box-sizing: border-box;
+          padding: 0;
+          margin: 0;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          font-family: var(--font-text);
+          font-size: var(--text-size);
+          background-color: var(--color-black);
+          color: var(--color-text-grey);
+          line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+          font-family: var(--font-title);
+          color: var(--color-white);
+          font-weight: 700;
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; color: var(--color-blue); }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ==================== CLASSES REUTILIZÁVEIS ==================== */
+        .container {
+          max-width: 1120px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 0 1.5rem;
+        }
+
+        .grid { display: grid; gap: 1.5rem; }
+        .section { 
+            padding: 6rem 0 2rem; 
+            position: relative;
+            overflow: hidden;
+        }
+        .section__title {
+          font-size: var(--h2-size);
+          text-align: center;
+          margin-bottom: 4rem;
+          position: relative;
+        }
+        .section__title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-blue);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ==================== BOTÕES ==================== */
+        .button {
+          display: inline-block;
+          padding: 1rem 2.2rem;
+          border-radius: 8px;
+          font-family: var(--font-text);
+          font-weight: 700;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          border: 2px solid transparent;
+          text-align: center;
+        }
+
+        .button--primary {
+          background-color: var(--color-blue);
+          color: var(--color-white);
+          box-shadow: 0 4px 15px rgba(0, 85, 255, 0.4);
+        }
+        .button--primary:hover {
+          background-color: var(--color-red);
+          transform: scale(1.05);
+          box-shadow: 0 4px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .button--secondary {
+          background-color: transparent;
+          color: var(--color-white);
+          border: 2px solid var(--color-white);
+        }
+        .button--secondary:hover {
+          background-color: var(--color-white);
+          color: var(--color-black);
+        }
+
+        /* ==================== CABEÇALHO E NAVEGAÇÃO ==================== */
+        .header {
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          background-color: transparent;
+          transition: background-color 0.4s, box-shadow 0.4s;
+        }
+        .nav {
+          height: 4.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            font-weight: 700;
+        }
+
+        .nav__logo-icon {
+            width: 50px;
+            height: auto;
+        }
+
+        .nav__menu { display: flex; align-items: center; }
+        .nav__list { display: flex; gap: 2.5rem; }
+        .nav__link {
+          color: var(--color-white);
+          font-size: var(--text-size);
+          transition: color 0.3s;
+          position: relative;
+          padding-bottom: 0.5rem;
+        }
+        .nav__link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--color-blue);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        .nav__link:hover::after, .nav__link.active-link::after { width: 100%; }
+        .nav__link:hover, .nav__link.active-link { color: var(--color-white); }
+
+        .nav__actions { display: flex; align-items: center; gap: 1rem; }
+        .nav__toggle, .nav__close { font-size: 1.5rem; cursor: pointer; display: none; }
+
+        .header-scrolled {
+          background-color: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ==================== HOME (HERO) ==================== */
+        .home {
+          height: 100vh;
+        }
+        .home__parallax-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('fundo 5.jpg');
+          background-size: cover;
+          background-position: center;
+          z-index: -2;
+        }
+        .home::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, var(--color-black) 95%);
+          z-index: -1;
+        }
+        .home__container { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center; 
+            width: 100%; 
+        }
+        .home__title { 
+            font-size: var(--h1-size); 
+            margin-bottom: 1rem;
+            /* Efeito de gradiente no texto */
+            background: linear-gradient(90deg, var(--color-red), var(--color-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .home__title.is-floating {
+            animation: float-animation 4s ease-in-out infinite;
+        }
+        .home__subtitle { font-size: 1.25rem; margin-bottom: 2.5rem; color: var(--color-text-grey); max-width: 600px; margin-left: auto; margin-right: auto; }
+        .home__buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+        /* ==================== ANIMAÇÃO DO LOGO (INTRO) ==================== */
+        .intro-logo {
+            width: 180px; /* Tamanho ajustado */
+            height: auto;
+            margin: 0 auto 2rem;
+            animation: fade-in-logo 2.5s ease-out forwards;
+        }
+
+        @keyframes fade-in-logo {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float-animation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* ==================== DESTAQUES ==================== */
+        .highlights__container { grid-template-columns: repeat(3, 1fr); }
+        .highlight__card {
+            background-color: rgba(17, 17, 17, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #222;
+            /* Efeito 3D */
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+        .highlight__card:hover {
+            box-shadow: 0 10px 30px rgba(0, 85, 255, 0.2);
+        }
+        .highlight__icon { font-size: 3rem; color: var(--color-blue); margin-bottom: 1.5rem; }
+        .highlight__title { font-size: var(--h4-size); margin-bottom: 0.5rem; }
+
+        /* ==================== SOBRE (LINHA DO TEMPO) ==================== */
+        .about {
+            background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('fundo 1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--color-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 1;
+        }
+        .timeline__item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        .timeline__item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -12px;
+            background-color: var(--color-white);
+            border: 4px solid var(--color-blue);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        .timeline__item:nth-child(odd) {
+            left: 0;
+        }
+        .timeline__item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline__item:nth-child(even)::after {
+            left: -8px;
+        }
+        .timeline__content {
+            padding: 20px 30px;
+            background-color: var(--color-dark-grey);
+            position: relative;
+            border-radius: 6px;
+            border-left: 4px solid var(--color-red);
+        }
+        .timeline__item:nth-child(even) .timeline__content {
+            border-left: none;
+            border-right: 4px solid var(--color-red);
+        }
+        .timeline__year {
+            font-size: 1.2rem;
+            color: var(--color-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ==================== PILARES (MISSÃO, VISÃO, VALORES) ==================== */
+        .pillars {
+            padding-bottom: 6rem;
+        }
+        .pillars__container {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .pillar__card {
+            background-color: var(--color-dark-grey);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            border-bottom: 4px solid var(--color-blue);
+            /* Efeito 3D */
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+        .pillar__card:hover {
+            box-shadow: 0 10px 30px rgba(0, 85, 255, 0.2);
+        }
+        .pillar__icon {
+            font-size: 3rem;
+            color: var(--color-blue);
+            margin-bottom: 1.5rem;
+        }
+        .pillar__title {
+            font-size: var(--h3-size);
+            margin-bottom: 1rem;
+        }
+        .pillar__description {
+            font-style: italic;
+        }
+
+        /* ==================== SERVIÇOS ==================== */
+        .services { 
+            background-image: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), url('fundo 8.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .services__container { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .service__card {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-blue);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service__card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .service__icon { font-size: 2.5rem; color: var(--color-red); margin-bottom: 1rem; }
+        .service__title { font-size: var(--h4-size); margin-bottom: 1rem; }
+        .service__link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: bold;
+            position: relative;
+            color: var(--color-white);
+        }
+        .service__link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--color-blue);
+            transition: width 0.3s;
+        }
+        .service__link:hover::after { width: 100%; }
+
+        /* ==================== PORTFÓLIO ==================== */
+        .portfolio__filters {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .portfolio__filter-item {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .portfolio__filter-item:hover { color: var(--color-blue); }
+        .portfolio__filter-item.active-filter {
+            background-color: var(--color-blue);
+            color: var(--color-white);
+        }
+
+        .portfolio__gallery { grid-template-columns: repeat(3, 1fr); }
+        .portfolio__card { 
+            display: block;
+            position: relative; 
+            cursor: pointer; 
+            overflow: hidden; 
+            border-radius: 8px; 
+        }
+        .portfolio__img { transition: transform 0.4s; width: 100%; height: 100%; object-fit: cover; }
+        .portfolio__card:hover .portfolio__img { transform: scale(1.1); }
+        .portfolio__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,85,255,0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .portfolio__card:hover .portfolio__overlay { opacity: 1; }
+        .portfolio__overlay h3 { color: var(--color-white); font-size: var(--h4-size); }
+
+        /* ==================== TESTEMUNHOS ==================== */
+        .testimonials {
+            background-color: var(--color-dark-grey);
+        }
+        .testimonials__container {
+            position: relative;
+            max-width: 800px;
+        }
+        .testimonial__slider {
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.5s ease-in-out;
+        }
+        .testimonial__slide {
+            flex: 0 0 100%;
+            padding: 2rem;
+            text-align: center;
+        }
+        .testimonial__quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial__quote::before {
+            content: '“';
+            font-size: 3rem;
+            color: var(--color-blue);
+            margin-right: 0.5rem;
+        }
+        .testimonial__quote::after {
+            content: '”';
+            font-size: 3rem;
+            color: var(--color-blue);
+            margin-left: 0.5rem;
+        }
+        .testimonial__author {
+            font-weight: bold;
+            color: var(--color-white);
+        }
+        .testimonial__company {
+            font-size: 0.9rem;
+            color: var(--color-text-grey);
+        }
+        .testimonial__nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .testimonial__nav button {
+            background-color: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--color-white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .testimonial__nav button:hover {
+            background-color: var(--color-blue);
+        }
+
+        /* ==================== FAQ ==================== */
+        .faq {
+            background-color: var(--color-dark-grey);
+        }
+        .faq__container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .faq__item {
+            background-color: var(--color-black);
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+        .faq__question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            cursor: pointer;
+        }
+        .faq__question h3 {
+            font-family: var(--font-text);
+            font-size: 1.1rem;
+        }
+        .faq__question i {
+            transition: transform 0.3s;
+        }
+        .faq__answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        }
+        .faq__answer p {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .faq__item.active .faq__answer {
+            max-height: 200px; /* Altura suficiente para a resposta */
+        }
+        .faq__item.active .faq__question i {
+            transform: rotate(180deg);
+        }
+
+
+        /* ==================== CONTATO ==================== */
+        .contact {
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('fundo 2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .contact__container { grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: flex-start; }
+        .contact__info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact__form .contact__group { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .contact__input {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--color-dark-grey);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--color-white);
+            font-family: var(--font-text);
+            font-size: var(--text-size);
+            transition: border-color 0.3s;
+        }
+        .contact__input:focus { outline: none; border-color: var(--color-blue); }
+        .contact__input::placeholder { color: #888; }
+        textarea.contact__input { resize: vertical; min-height: 150px; margin-bottom: 1rem; }
+        .contact__form .button { width: 100%; }
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border-radius: 8px;
+            filter: grayscale(1) invert(0.9);
+        }
+        .contact__message {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        /* ==================== RODAPÉ ==================== */
+        .footer { background-color: var(--color-dark-grey); padding: 4rem 0 2rem; }
+        .footer__container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid #333;
+        }
+        .footer__title { font-size: var(--h4-size); margin-bottom: 1rem; }
+        .footer__link { color: var(--color-text-grey); display: block; margin-bottom: 0.5rem; transition: color 0.3s; }
+        .footer__link:hover { color: var(--color-blue); }
+        .footer__socials { display: flex; gap: 1rem; }
+        .footer__social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #222;
+            color: var(--color-white);
+            border-radius: 50%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .footer__social-link:hover { background-color: var(--color-blue); transform: translateY(-3px); }
+        .footer__copy { text-align: center; margin-top: 3rem; color: #888; font-size: var(--legend-size); }
+
+        /* ==================== BOTÃO WHATSAPP E VOLTAR AO TOPO ==================== */
+        .action-buttons {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .whatsapp-button, .back-to-top-button {
+            width: 60px;
+            height: 60px;
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transform: scale(0);
+            transition: transform 0.4s ease-in-out;
+        }
+        .whatsapp-button {
+            background-color: #25D366;
+        }
+        .back-to-top-button {
+            background-color: var(--color-blue);
+        }
+        .whatsapp-button.show, .back-to-top-button.show {
+            transform: scale(1);
+        }
+        .whatsapp-button:hover, .back-to-top-button:hover {
+            transform: scale(1.1) !important;
+        }
+        .whatsapp-button:hover { background-color: #128C7E; }
+        .back-to-top-button:hover { background-color: var(--color-red); }
+
+
+        /* ==================== ANIMAÇÕES ==================== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== RESPONSIVIDADE ==================== */
+        @media screen and (max-width: 992px) {
+            .container { padding: 0 1rem; }
+            .about__container, .contact__container, .pillars__container { grid-template-columns: 1fr; }
+            .about__data { order: 2; text-align: center; }
+            .about__container { gap: 2rem; }
+            .portfolio__gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav__menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100%;
+                background-color: var(--color-dark-grey);
+                padding: 6rem 2rem 0;
+                transition: right 0.4s ease-out;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+            .nav__list { flex-direction: column; gap: 2.5rem; }
+            .nav__close { display: block; position: absolute; top: 1.5rem; right: 1.5rem; color: var(--color-white); }
+            .nav__toggle { display: block; color: var(--color-white); }
+            .nav__button { display: none; }
+            .show-menu { right: 0; }
+            
+            :root {
+                --h1-size: 38px;
+                --h2-size: 30px;
+                --h3-size: 24px;
+            }
+            
+            .home { height: 90vh; }
+            .home__title { min-height: 100px; }
+            .highlights__container, .portfolio__gallery { grid-template-columns: 1fr; }
+            .contact__form .contact__group { grid-template-columns: 1fr; }
+            .footer__container { text-align: center; }
+            .footer__socials { justify-content: center; }
+            .action-buttons {
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+            .whatsapp-button, .back-to-top-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .timeline::after {
+                left: 20px;
+            }
+            .timeline__item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 10px;
+            }
+            .timeline__item:nth-child(even) {
+                left: 0;
+            }
+            .timeline__item::after {
+                left: 10px;
+            }
+             .timeline__item:nth-child(even) .timeline__content {
+                border-left: 4px solid var(--color-red);
+                border-right: none;
+            }
+            .testimonial__nav {
+                display: none; /* Esconder setas em mobile, swipe é mais intuitivo */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== CABEÇALHO ==================== -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#home" class="nav__logo">
+                <img src="logofinalNGsemfundo.png" alt="Logotipo NG Space" class="nav__logo-icon">
+                <span>NG Space</span>
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">Sobre</a></li>
+                    <li class="nav__item"><a href="#services" class="nav__link">Serviços</a></li>
+                    <li class="nav__item"><a href="#portfolio" class="nav__link">Portfólio</a></li>
+                    <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contato</a></li>
+                </ul>
+                <div class="nav__close" id="nav-close"><i class="fas fa-times"></i></div>
+            </div>
+            
+            <div class="nav__actions">
+                <a href="#contact" class="button button--primary nav__button">Orçamento</a>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ==================== HOME (HERO) ==================== -->
+        <section class="home section" id="home">
+            <div class="home__parallax-bg"></div>
+            <div class="home__container container">
+                <div class="home__content">
+                    <!-- Logo com animação de fade-in -->
+                    <img src="logofinalNGsemfundo.png" alt="Logotipo NG Space" class="intro-logo">
+
+                    <h1 class="home__title"><span id="typed-title"></span></h1>
+                    <p class="home__subtitle">Painéis de LED para todos os formatos, interatividade e imersão para transformar seus eventos em experiências extraordinárias.</p>
+                    <div class="home__buttons">
+                        <a href="#contact" class="button button--primary">Solicitar Orçamento</a>
+                        <a href="#portfolio" class="button button--secondary">Ver Portfólio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== DESTAQUES ==================== -->
+        <section class="highlights section">
+            <div class="highlights__container container grid">
+                <div class="highlight__card animate-on-scroll interactive-card">
+                    <i class="fas fa-rocket highlight__icon"></i>
+                    <h3 class="highlight__title">Painéis de LED</h3>
+                    <p class="highlight__description">Impacto visual de alta definição para qualquer ocasião.</p>
+                </div>
+                <div class="highlight__card animate-on-scroll interactive-card">
+                    <i class="fas fa-satellite-dish highlight__icon"></i>
+                    <h3 class="highlight__title">Sonorização</h3>
+                    <p class="highlight__description">Qualidade de som cristalina que envolve seu público.</p>
+                </div>
+                <div class="highlight__card animate-on-scroll interactive-card">
+                    <i class="fas fa-star highlight__icon"></i>
+                    <h3 class="highlight__title">Iluminação</h3>
+                    <p class="highlight__description">Crie a atmosfera perfeita com projetos de luz cênica.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SOBRE (LINHA DO TEMPO) ==================== -->
+        <section class="about section" id="about">
+            <h2 class="section__title">A Nossa Jornada</h2>
+            <div class="container">
+                <div class="timeline">
+                    <div class="timeline__item animate-on-scroll">
+                        <div class="timeline__content">
+                            <h3 class="timeline__year">O Início</h3>
+                            <p>A NG nasce com o propósito de conectar ideias e transformar a experiência audiovisual do seu evento e negócio.</p>
+                        </div>
+                    </div>
+                    <div class="timeline__item animate-on-scroll">
+                        <div class="timeline__content">
+                            <h3 class="timeline__year">Expansão</h3>
+                            <p>Investimos em novos equipamentos, incluindo painéis de LED flexíveis, totens interativos e sistemas de som de última geração para atender a qualquer demanda.</p>
+                        </div>
+                    </div>
+                    <div class="timeline__item animate-on-scroll">
+                        <div class="timeline__content">
+                            <h3 class="timeline__year">Consolidação</h3>
+                            <p>Tornamo-nos parceiros audiovisuais em eventos de grande escala e projetos corporativos para marcas de renome.</p>
+                        </div>
+                    </div>
+                    <div class="timeline__item animate-on-scroll">
+                        <div class="timeline__content">
+                            <h3 class="timeline__year">O Futuro</h3>
+                            <p>Continuamos a inovar, focados em ser a referência de confiança e tecnologia de ponta no mercado audiovisual do Brasil.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== NOSSOS PILARES ==================== -->
+        <section class="pillars section">
+            <h2 class="section__title">Nossos Pilares</h2>
+            <div class="pillars__container container grid">
+                <div class="pillar__card animate-on-scroll interactive-card">
+                    <i class="fas fa-flag pillar__icon"></i>
+                    <h3 class="pillar__title">Missão</h3>
+                    <p class="pillar__description">Promover experiências visuais que realmente conectam. Utilizando Painéis de LED e interatividade para transformar seu ambiente em uma verdadeira plataforma de comunicação visual.</p>
+                </div>
+                <div class="pillar__card animate-on-scroll interactive-card">
+                    <i class="fas fa-eye pillar__icon"></i>
+                    <h3 class="pillar__title">Visão</h3>
+                    <p class="pillar__description">Levar a comunicação de marcas a um novo universo, onde tecnologia, criatividade e impacto caminham juntos, deixando marcas gravadas na memória.</p>
+                </div>
+                <div class="pillar__card animate-on-scroll interactive-card">
+                    <i class="fas fa-bullseye pillar__icon"></i>
+                    <h3 class="pillar__title">Valores</h3>
+                    <p class="pillar__description"><b>Excelência Estratégica:</b> "Quem domina a técnica, transforma execução em impacto."<br><b>Atitude Visionária:</b> "Quem enxerga o que ainda não existe, cria o que ninguém imagina."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SERVIÇOS ==================== -->
+        <section class="services section" id="services">
+            <h2 class="section__title">Soluções Completas Para Você</h2>
+            <div class="services__container container grid">
+                <div class="service__card animate-on-scroll">
+                    <i class="fas fa-tv service__icon"></i>
+                    <h3 class="service__title">Painéis de LED</h3>
+                    <p class="service__description">Seja para evento ou comércio, o painel de LED ideal você encontra aqui. Modelos como canto vivo, flexível, tradicional e curvo, para ambientes internos e externos.</p>
+                    <a href="#" class="service__link">Saiba Mais</a>
+                </div>
+                <div class="service__card animate-on-scroll">
+                    <i class="fas fa-globe service__icon"></i>
+                    <h3 class="service__title">Esfera de LED</h3>
+                    <p class="service__description">Crie experiências 360° totalmente imersivas. A nossa esfera de LED é o ponto focal perfeito para gerar impacto e admiração no seu evento.</p>
+                    <a href="#" class="service__link">Saiba Mais</a>
+                </div>
+                <div class="service__card animate-on-scroll">
+                    <i class="fas fa-mobile-alt service__icon"></i>
+                    <h3 class="service__title">Interatividade</h3>
+                    <p class="service__description">TVs e Totens Touch para se conectar melhor ao público, despertar a curiosidade e conquistar novos clientes.</p>
+                    <a href="#" class="service__link">Saiba Mais</a>
+                </div>
+                <div class="service__card animate-on-scroll">
+                    <i class="fas fa-users service__icon"></i>
+                    <h3 class="service__title">Padrão de Qualidade</h3>
+                    <p class="service__description">Prezamos pelo bom relacionamento. Não entregamos apenas equipamentos, entregamos confiança, tranquilidade e resultados visíveis.</p>
+                    <a href="#" class="service__link">Saiba Mais</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PORTFÓLIO ==================== -->
+        <section class="portfolio section" id="portfolio">
+            <h2 class="section__title">Cases de Sucesso</h2>
+            <div class="portfolio__container container">
+                 <div class="portfolio__filters">
+                    <span class="portfolio__filter-item active-filter" data-filter="all">Todos</span>
+                    <span class="portfolio__filter-item" data-filter=".corporativo">Corporativo</span>
+                    <span class="portfolio__filter-item" data-filter=".feira">Feira</span>
+                    <span class="portfolio__filter-item" data-filter=".show">Show</span>
+                 </div>
+                 <!-- Galeria Atualizada para Lightbox -->
+                 <div class="portfolio__gallery grid" id="portfolio-gallery">
+                    <a href="ilustrativa3.png" class="portfolio__card mix corporativo" data-caption="Sonorização Profissional">
+                        <img src="ilustrativa3.png" alt="Sonorização Profissional" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay"><h3>Sonorização Profissional</h3></div>
+                    </a>
+                    <a href="ilustrativa1.png" class="portfolio__card mix feira" data-caption="Painel de LED Interativo">
+                        <img src="ilustrativa1.png" alt="Painel de LED Interativo" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay"><h3>Painel de LED Interativo</h3></div>
+                    </a>
+                    <a href="ilustrativa2.png" class="portfolio__card mix show" data-caption="Iluminação Cénica">
+                        <img src="ilustrativa2.png" alt="Iluminação Cénica" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay"><h3>Iluminação Cénica</h3></div>
+                    </a>
+                 </div>
+            </div>
+        </section>
+
+        <!-- ==================== TESTEMUNHOS ==================== -->
+        <section class="testimonials section">
+            <h2 class="section__title">O Que Dizem Nossos Clientes</h2>
+            <div class="testimonials__container container">
+                <div class="testimonial__slider" id="testimonial-slider">
+                    <div class="testimonial__slide">
+                        <p class="testimonial__quote">Serviço impecável do início ao fim. A sonorização do nosso evento corporativo estava perfeita. Recomendo vivamente!</p>
+                    </div>
+                    <div class="testimonial__slide">
+                        <p class="testimonial__quote">Contratámos a iluminação cénica para o nosso show e o resultado foi espetacular. Transformaram o palco num verdadeiro universo de cores.</p>
+                    </div>
+                    <div class="testimonial__slide">
+                        <p class="testimonial__quote">A qualidade dos painéis de LED e o profissionalismo da equipe superaram todas as nossas expectativas. O nosso stand foi o destaque da feira!</p>
+                    </div>
+                </div>
+                <div class="testimonial__nav">
+                    <button class="testimonial__prev" id="prev-testimonial" aria-label="Testemunho anterior"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial__next" id="next-testimonial" aria-label="Próximo testemunho"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FAQ ==================== -->
+        <section class="faq section" id="faq">
+            <h2 class="section__title">Perguntas Frequentes</h2>
+            <div class="faq__container container">
+                <div class="faq__item">
+                    <div class="faq__question">
+                        <h3>Que tipos de painéis de LED vocês oferecem?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq__answer">
+                        <p>Oferecemos uma vasta gama de painéis de LED, incluindo modelos tradicionais, flexíveis, curvos, de canto vivo e a nossa exclusiva Esfera de LED 360°, garantindo a solução perfeita para o seu projeto.</p>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question">
+                        <h3>Vocês oferecem suporte técnico durante o evento?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq__answer">
+                        <p>Sim! O nosso serviço "Padrão de Qualidade" inclui uma equipe técnica especializada que acompanha o seu evento do início ao fim, garantindo que tudo corra na perfeição e com total tranquilidade para si.</p>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__question">
+                        <h3>Como posso solicitar um orçamento?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq__answer">
+                        <p>É muito simples! Pode preencher o formulário na nossa secção de "Contato", ligar para o nosso número de telefone ou enviar uma mensagem diretamente através do botão de WhatsApp no canto da página.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTATO ==================== -->
+        <section class="contact section" id="contact">
+            <h2 class="section__title">Fale Conosco</h2>
+            <div class="contact__container container grid">
+                <form class="contact__form" id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST"> <!-- COLOQUE AQUI O SEU URL DO FORMSPREE -->
+                    <div class="contact__group">
+                        <input type="text" name="name" placeholder="Nome" class="contact__input" required>
+                        <input type="text" name="company" placeholder="Empresa" class="contact__input" required>
+                    </div>
+                    <div class="contact__group">
+                        <input type="email" name="email" placeholder="E-mail" class="contact__input" required>
+                        <input type="tel" name="phone" placeholder="Telefone" class="contact__input" required>
+                    </div>
+                    <textarea name="message" placeholder="Sua Mensagem" class="contact__input" required></textarea>
+                    
+                    <button type="submit" class="button button--primary">Enviar</button>
+                    <p class="contact__message" id="contact-message"></p>
+                </form>
+
+                <div class="contact__info">
+                    <p>Estamos no coração da Zona Norte de São Paulo, próximos de dois principais pontos de eventos mundiais, Distrito Anhembi e Expo Center Norte.</p>
+                    <div class="contact__map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14636.83785165842!2d-46.63239463022461!3d-23.4886864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce588a73555555%3A0x7b322476a614324f!2sSantana%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1678886543210!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map-iframe"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer class="footer">
+        <div class="footer__container container">
+            <div class="footer__section">
+                <h3 class="footer__title">NG Space</h3>
+                <p>Um universo de possibilidades visuais.</p>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Links</h3>
+                <ul>
+                    <li><a href="#about" class="footer__link">Sobre</a></li>
+                    <li><a href="#services" class="footer__link">Serviços</a></li>
+                    <li><a href="#" class="footer__link">Blog</a></li>
+                    <li><a href="#" class="footer__link">Política de Privacidade</a></li>
+                </ul>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Contato</h3>
+                <p>contato@ngspace.com</p>
+                <p>+55 11 94983-3890</p>
+                <p>Av. Ezequiel Freire, 55 - Santana - São Paulo, SP</p>
+            </div>
+            <div class="footer__section">
+                <h3 class="footer__title">Redes Sociais</h3>
+                <div class="footer__socials">
+                    <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/ngspace.oficial/" target="_blank" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="footer__copy">&#169; 2025 NG Space. Todos os direitos reservados.</p>
+    </footer>
+    
+    <!-- Botões Flutuantes -->
+    <div class="action-buttons">
+        <a href="https://wa.me/5511949833890?text=Olá!%20Gostaria%20de%20um%20orçamento." class="whatsapp-button" target="_blank" aria-label="Fale conosco no WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#home" class="back-to-top-button" aria-label="Voltar ao topo">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+
+    <!-- Scripts JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <script>
+        /* ==================== MENU MOBILE ==================== */
+        const navMenu = document.getElementById('nav-menu');
+        const navToggle = document.getElementById('nav-toggle');
+        const navClose = document.getElementById('nav-close');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.add('show-menu');
+            });
+        }
+
+        if (navClose) {
+            navClose.addEventListener('click', () => {
+                navMenu.classList.remove('show-menu');
+            });
+        }
+
+        const navLinks = document.querySelectorAll('.nav__link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show-menu');
+            });
+        });
+
+        /* ==================== CABEÇALHO COM SCROLL ==================== */
+        const header = document.getElementById('header');
+        function scrollHeader() {
+            if (this.scrollY >= 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        }
+        window.addEventListener('scroll', scrollHeader);
+
+        /* ==================== LINK ATIVO DA SEÇÃO ATUAL ==================== */
+        const sections = document.querySelectorAll('section[id]');
+
+        function scrollActive() {
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 58;
+                const sectionId = current.getAttribute('id');
+                const link = document.querySelector('.nav__menu a[href*=' + sectionId + ']');
+
+                if(link) {
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        link.classList.add('active-link');
+                    } else {
+                        link.classList.remove('active-link');
+                    }
+                }
+            });
+        }
+        window.addEventListener('scroll', scrollActive);
+
+
+        /* ==================== ANIMAÇÕES COM SCROLL (FADE-IN) ==================== */
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        /* ==================== FILTRO DO PORTFÓLIO (MIXITUP) ==================== */
+        if (typeof mixitup === 'function') {
+            let mixerPortfolio = mixitup('.portfolio__gallery', {
+                selectors: {
+                    target: '.portfolio__card'
+                },
+                animation: {
+                    duration: 300
+                }
+            });
+
+            const filterLinks = document.querySelectorAll('.portfolio__filter-item');
+            function activeFilter() {
+                filterLinks.forEach(l => l.classList.remove('active-filter'));
+                this.classList.add('active-filter');
+            }
+            filterLinks.forEach(l => l.addEventListener('click', activeFilter));
+        }
+        
+        /* ==================== LIGHTBOX DO PORTFÓLIO ==================== */
+        window.addEventListener('load', function() {
+            if(typeof baguetteBox !== 'undefined'){
+                baguetteBox.run('#portfolio-gallery');
+            }
+        });
+
+        /* ==================== ANIMAÇÃO DE TEXTO (TYPED.JS) ==================== */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Atraso para iniciar a digitação após a animação do logo
+            setTimeout(() => {
+                if(typeof Typed !== 'undefined'){
+                    var options = {
+                        strings: ['Um universo de possibilidades visuais'],
+                        typeSpeed: 50,
+                        backSpeed: 25,
+                        backDelay: 1500,
+                        startDelay: 500,
+                        loop: false,
+                        showCursor: true,
+                        cursorChar: '|',
+                        onComplete: function(self) {
+                            const titleElement = self.el.closest('.home__title');
+                            if (titleElement) {
+                                titleElement.classList.add('is-floating');
+                            }
+                        }
+                    };
+                    var typed = new Typed('#typed-title', options);
+                }
+            }, 2500); // Atraso ajustado para a nova animação
+        });
+
+
+        /* ==================== FORMULÁRIO DE CONTATO ==================== */
+        // O formulário agora usa o action do Formspree. O JavaScript abaixo é apenas para feedback visual.
+        const contactForm = document.getElementById('contact-form');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                const contactMessage = document.getElementById('contact-message');
+                contactMessage.textContent = 'Enviando...';
+                contactMessage.style.color = 'var(--color-blue)';
+            });
+        }
+
+
+        /* ==================== EFEITO PARALLAX NO HERO ==================== */
+        window.addEventListener('scroll', () => {
+            const parallaxBg = document.querySelector('.home__parallax-bg');
+            if(parallaxBg) {
+                const scrollPosition = window.pageYOffset;
+                parallaxBg.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+            }
+        });
+
+        /* ==================== BOTÕES FLUTUANTES COM SCROLL ==================== */
+        const whatsappButton = document.querySelector('.whatsapp-button');
+        const backToTopButton = document.querySelector('.back-to-top-button');
+
+        function toggleActionButtons() {
+            if (this.scrollY >= 400) {
+                whatsappButton.classList.add('show');
+                backToTopButton.classList.add('show');
+            } else {
+                whatsappButton.classList.remove('show');
+                backToTopButton.classList.remove('show');
+            }
+        }
+        window.addEventListener('scroll', toggleActionButtons);
+
+        /* ==================== SLIDER DE TESTEMUNHOS ==================== */
+        const slider = document.getElementById('testimonial-slider');
+        const prevBtn = document.getElementById('prev-testimonial');
+        const nextBtn = document.getElementById('next-testimonial');
+        let slideIndex = 0;
+
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.testimonial__slide');
+            slideIndex += n;
+            if (slideIndex >= slides.length) {slideIndex = 0}
+            if (slideIndex < 0) {slideIndex = slides.length - 1}
+            slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        if(prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => showSlides(-1));
+            nextBtn.addEventListener('click', () => showSlides(1));
+        }
+
+        /* ==================== ANIMAÇÃO 3D NOS CARDS ==================== */
+        const interactiveCards = document.querySelectorAll('.interactive-card');
+        interactiveCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 10; // Fator de rotação
+                const rotateY = (centerX - x) / 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
+        });
+
+        /* ==================== FAQ ACORDEÃO ==================== */
+        const faqItems = document.querySelectorAll('.faq__item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq__question');
+            question.addEventListener('click', () => {
+                const openItem = document.querySelector('.faq__item.active');
+                
+                // Fecha o item que já está aberto, se não for o que foi clicado
+                if(openItem && openItem !== item) {
+                    openItem.classList.remove('active');
+                }
+
+                // Abre ou fecha o item clicado
+                item.classList.toggle('active');
+            });
+        });
+
+    </script>
+</body>
+</html>
