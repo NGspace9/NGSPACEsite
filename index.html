@@ -953,16 +953,16 @@
                  </div>
                  <!-- Galeria Atualizada para Lightbox -->
                  <div class="portfolio__gallery grid" id="portfolio-gallery">
-                    <a href="ilustrativa3.png" class="portfolio__card mix corporativo" data-caption="Sonorização Profissional">
-                        <img src="ilustrativa3.png" alt="Sonorização Profissional" class="portfolio__img" loading="lazy">
+                    <a href="ilustrativa3.jpg" class="portfolio__card mix corporativo" data-caption="Sonorização Profissional">
+                        <img src="ilustrativa3.jpg" alt="Sonorização Profissional" class="portfolio__img" loading="lazy">
                         <div class="portfolio__overlay"><h3>Sonorização Profissional</h3></div>
                     </a>
-                    <a href="ilustrativa1.png" class="portfolio__card mix feira" data-caption="Painel de LED Interativo">
-                        <img src="ilustrativa1.png" alt="Painel de LED Interativo" class="portfolio__img" loading="lazy">
+                    <a href="ilustrativa1.jpg" class="portfolio__card mix feira" data-caption="Painel de LED Interativo">
+                        <img src="ilustrativa1.jpg" alt="Painel de LED Interativo" class="portfolio__img" loading="lazy">
                         <div class="portfolio__overlay"><h3>Painel de LED Interativo</h3></div>
                     </a>
-                    <a href="ilustrativa2.png" class="portfolio__card mix show" data-caption="Iluminação Cénica">
-                        <img src="ilustrativa2.png" alt="Iluminação Cénica" class="portfolio__img" loading="lazy">
+                    <a href="ilustrativa2.jpg" class="portfolio__card mix show" data-caption="Iluminação Cénica">
+                        <img src="ilustrativa2.jpg" alt="Iluminação Cénica" class="portfolio__img" loading="lazy">
                         <div class="portfolio__overlay"><h3>Iluminação Cénica</h3></div>
                     </a>
                  </div>
@@ -1029,18 +1029,18 @@
         <section class="contact section" id="contact">
             <h2 class="section__title">Fale Conosco</h2>
             <div class="contact__container container grid">
-                <form class="contact__form" id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST"> <!-- COLOQUE AQUI O SEU URL DO FORMSPREE -->
+                <form class="contact__form" id="contact-form">
                     <div class="contact__group">
-                        <input type="text" name="name" placeholder="Nome" class="contact__input" required>
-                        <input type="text" name="company" placeholder="Empresa" class="contact__input" required>
+                        <input type="text" id="form-name" placeholder="Nome" class="contact__input" required>
+                        <input type="text" id="form-company" placeholder="Empresa" class="contact__input" required>
                     </div>
                     <div class="contact__group">
-                        <input type="email" name="email" placeholder="E-mail" class="contact__input" required>
-                        <input type="tel" name="phone" placeholder="Telefone" class="contact__input" required>
+                        <input type="email" id="form-email" placeholder="E-mail" class="contact__input" required>
+                        <input type="tel" id="form-phone" placeholder="Telefone" class="contact__input" required>
                     </div>
-                    <textarea name="message" placeholder="Sua Mensagem" class="contact__input" required></textarea>
+                    <textarea id="form-message" placeholder="Sua Mensagem" class="contact__input" required></textarea>
                     
-                    <button type="submit" class="button button--primary">Enviar</button>
+                    <button type="submit" class="button button--primary">Enviar para WhatsApp</button>
                     <p class="contact__message" id="contact-message"></p>
                 </form>
 
@@ -1230,14 +1230,47 @@
         });
 
 
-        /* ==================== FORMULÁRIO DE CONTATO ==================== */
-        // O formulário agora usa o action do Formspree. O JavaScript abaixo é apenas para feedback visual.
+        /* ==================== FORMULÁRIO DE CONTATO PARA WHATSAPP ==================== */
         const contactForm = document.getElementById('contact-form');
         if(contactForm) {
             contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Impede o envio tradicional do formulário
+
+                // Obter os valores dos campos
+                const name = document.getElementById('form-name').value;
+                const company = document.getElementById('form-company').value;
+                const email = document.getElementById('form-email').value;
+                const phone = document.getElementById('form-phone').value;
+                const message = document.getElementById('form-message').value;
+                
+                // O seu número de WhatsApp (com código do país, sem o '+')
+                const yourWhatsappNumber = '5511949833890';
+
+                // Montar a mensagem
+                let whatsappMessage = `Olá! Gostaria de solicitar um orçamento.\n\n`;
+                whatsappMessage += `*Nome:* ${name}\n`;
+                whatsappMessage += `*Empresa:* ${company}\n`;
+                whatsappMessage += `*E-mail:* ${email}\n`;
+                whatsappMessage += `*Telefone:* ${phone}\n\n`;
+                whatsappMessage += `*Mensagem:*\n${message}`;
+
+                // Codificar a mensagem para URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+
+                // Criar o link do WhatsApp
+                const whatsappUrl = `https://wa.me/${yourWhatsappNumber}?text=${encodedMessage}`;
+
+                // Abrir o link numa nova aba
+                window.open(whatsappUrl, '_blank');
+                
+                // Limpar o formulário e mostrar mensagem de sucesso (opcional)
                 const contactMessage = document.getElementById('contact-message');
-                contactMessage.textContent = 'Enviando...';
-                contactMessage.style.color = 'var(--color-blue)';
+                contactMessage.textContent = 'A abrir o WhatsApp...';
+                contactMessage.style.color = '#4caf50';
+                contactForm.reset();
+                setTimeout(() => {
+                    contactMessage.textContent = '';
+                }, 4000);
             });
         }
 
@@ -1270,17 +1303,18 @@
         const slider = document.getElementById('testimonial-slider');
         const prevBtn = document.getElementById('prev-testimonial');
         const nextBtn = document.getElementById('next-testimonial');
-        let slideIndex = 0;
+        
+        if(slider && prevBtn && nextBtn) {
+            let slideIndex = 0;
 
-        function showSlides(n) {
-            const slides = document.querySelectorAll('.testimonial__slide');
-            slideIndex += n;
-            if (slideIndex >= slides.length) {slideIndex = 0}
-            if (slideIndex < 0) {slideIndex = slides.length - 1}
-            slider.style.transform = `translateX(-${slideIndex * 100}%)`;
-        }
+            function showSlides(n) {
+                const slides = document.querySelectorAll('.testimonial__slide');
+                slideIndex += n;
+                if (slideIndex >= slides.length) {slideIndex = 0}
+                if (slideIndex < 0) {slideIndex = slides.length - 1}
+                slider.style.transform = `translateX(-${slideIndex * 100}%)`;
+            }
 
-        if(prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => showSlides(-1));
             nextBtn.addEventListener('click', () => showSlides(1));
         }
@@ -1314,12 +1348,10 @@
             question.addEventListener('click', () => {
                 const openItem = document.querySelector('.faq__item.active');
                 
-                // Fecha o item que já está aberto, se não for o que foi clicado
                 if(openItem && openItem !== item) {
                     openItem.classList.remove('active');
                 }
 
-                // Abre ou fecha o item clicado
                 item.classList.toggle('active');
             });
         });
