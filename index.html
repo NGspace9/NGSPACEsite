@@ -71,7 +71,7 @@
 
         ul { list-style: none; }
         a { text-decoration: none; color: var(--color-blue); }
-        img { max-width: 100%; height: auto; display: block; }
+        img, video { max-width: 100%; height: auto; display: block; }
 
         /* ==================== CLASSES REUTILIZÁVEIS ==================== */
         .container {
@@ -204,17 +204,26 @@
         /* ==================== HOME (HERO) ==================== */
         .home {
           height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
-        .home__bg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: url('fundo5.jpg');
-          background-size: cover;
-          background-position: center;
-          z-index: -2;
+        .home__video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+            background-image: url('fundo5.jpg'); /* Imagem de fallback */
+            background-size: cover;
+            background-position: center;
+        }
+        .home__video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .home::before {
           content: '';
@@ -223,20 +232,18 @@
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: rgba(0,0,0,0.5); /* Overlay escuro sobre o fundo */
+          background-color: rgba(0,0,0,0.5); /* Overlay escuro sobre o vídeo */
           z-index: -1;
         }
         .home__container { 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
             text-align: center; 
             width: 100%; 
+            z-index: 1;
         }
         .home__title { 
             font-size: var(--h1-size); 
             margin-bottom: 1rem;
+            min-height: 120px;
             /* Efeito de gradiente no texto */
             background: linear-gradient(90deg, var(--color-red), var(--color-blue));
             -webkit-background-clip: text;
@@ -474,12 +481,21 @@
             background: linear-gradient(to top, rgba(0,85,255,0.8), transparent);
             display: flex;
             align-items: flex-end;
+            justify-content: center;
             padding: 1.5rem;
             opacity: 0;
             transition: opacity 0.4s;
         }
         .portfolio__card:hover .portfolio__overlay { opacity: 1; }
         .portfolio__overlay h3 { color: var(--color-white); font-size: var(--h4-size); }
+        .portfolio__overlay .video-play-icon {
+            font-size: 3rem;
+            color: var(--color-white);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
         /* ==================== VIDEO SECTION ==================== */
         .video-section {
@@ -582,11 +598,8 @@
             transition: opacity 0.3s;
         }
 
-        /* ==================== RODAPÉ (NOVO LAYOUT) ==================== */
-        .footer { 
-            background-color: var(--color-dark-grey); 
-            padding: 4rem 0 2rem; 
-        }
+        /* ==================== RODAPÉ ==================== */
+        .footer { background-color: var(--color-dark-grey); padding: 4rem 0 2rem; }
         .footer__container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -596,7 +609,7 @@
         }
         .footer__title { font-size: var(--h4-size); margin-bottom: 1rem; }
         .footer__link { color: var(--color-text-grey); display: block; margin-bottom: 0.5rem; transition: color 0.3s; }
-        .footer__link:hover { color: var(--color-white); }
+        .footer__link:hover { color: var(--color-blue); }
         .footer__socials { display: flex; gap: 1rem; }
         .footer__social-link {
             width: 40px;
@@ -610,12 +623,7 @@
             transition: background-color 0.3s, transform 0.3s;
         }
         .footer__social-link:hover { background-color: var(--color-blue); transform: translateY(-3px); }
-        .footer__copy { 
-            text-align: center; 
-            margin-top: 3rem; 
-            color: #888; 
-            font-size: var(--legend-size); 
-        }
+        .footer__copy { text-align: center; margin-top: 3rem; color: #888; font-size: var(--legend-size); }
 
         /* ==================== BOTÃO WHATSAPP E VOLTAR AO TOPO ==================== */
         .action-buttons {
@@ -733,9 +741,6 @@
                 border-left: 4px solid var(--color-red);
                 border-right: none;
             }
-            .testimonial__nav {
-                display: none; /* Esconder setas em mobile, swipe é mais intuitivo */
-            }
         }
     </style>
 </head>
@@ -773,7 +778,9 @@
     <main>
         <!-- ==================== HOME (HERO) ==================== -->
         <section class="home section" id="home">
-            <div class="home__bg"></div>
+            <div class="home__video-bg">
+                <video id="home-video" src="videongspace.mp4" autoplay muted playsinline></video>
+            </div>
             <div class="home__container container">
                 <div class="home__content">
                     <img src="logofinalNGsemfundo.png" alt="Logotipo NG Space" class="intro-logo">
@@ -906,17 +913,20 @@
                  </div>
                  <!-- Galeria Atualizada para Lightbox -->
                  <div class="portfolio__gallery grid" id="portfolio-gallery">
-                    <a href="ilustrativa3.jpg" class="portfolio__card mix corporativo" data-caption="Sonorização Profissional">
-                        <img src="ilustrativa3.jpg" alt="Sonorização Profissional" class="portfolio__img" loading="lazy">
-                        <div class="portfolio__overlay"><h3>Sonorização Profissional</h3></div>
+                    <a href="corpigreja.mp4" class="portfolio__card mix corporativo" data-caption="Corp São Bernardo">
+                        <img src="corpsaobernardo.jpg" alt="Corp São Bernardo" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay">
+                            <i class="fas fa-play video-play-icon"></i>
+                            <h3>Corp São Bernardo</h3>
+                        </div>
                     </a>
-                    <a href="ilustrativa1.jpg" class="portfolio__card mix feira" data-caption="Painel de LED Interativo">
-                        <img src="ilustrativa1.jpg" alt="Painel de LED Interativo" class="portfolio__img" loading="lazy">
-                        <div class="portfolio__overlay"><h3>Painel de LED Interativo</h3></div>
+                    <a href="ledFipan.jpg" class="portfolio__card mix feira" data-caption="LED Fipan">
+                        <img src="ledFipan.jpg" alt="LED Fipan" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay"><h3>LED Fipan</h3></div>
                     </a>
-                    <a href="ilustrativa2.jpg" class="portfolio__card mix show" data-caption="Iluminação Cénica">
-                        <img src="ilustrativa2.jpg" alt="Iluminação Cénica" class="portfolio__img" loading="lazy">
-                        <div class="portfolio__overlay"><h3>Iluminação Cénica</h3></div>
+                    <a href="ledvertical.jpg" class="portfolio__card mix feira" data-caption="LED Vertical">
+                        <img src="ledvertical.jpg" alt="LED Vertical" class="portfolio__img" loading="lazy">
+                        <div class="portfolio__overlay"><h3>LED Vertical</h3></div>
                     </a>
                  </div>
             </div>
@@ -925,8 +935,8 @@
         <!-- ==================== VIDEO SECTION ==================== -->
         <section class="video-section section">
             <h2 class="section__title">Veja em Ação</h2>
-            <div class="video-container container">
-                <video src="videoNGigreja.mp4" poster="ilustrativa1.jpg" controls style="width: 100%; border-radius: 8px;"></video>
+            <div class="video-container container" style="text-align: center; font-style: italic;">
+                <p>Em breve...</p>
             </div>
         </section>
 
@@ -1011,7 +1021,7 @@
             </div>
             <div class="footer__section">
                 <h3 class="footer__title">Contato</h3>
-                <p>contato@ngspace.com</p>
+                <p>contato@ngspace.com.br</p>
                 <p>+55 11 91118-1939</p>
                 <p>Av. Ezequiel Freire, 55 - Santana - São Paulo, SP</p>
             </div>
@@ -1142,9 +1152,18 @@
             }
         });
 
-        /* ==================== ANIMAÇÃO DE TEXTO (TYPED.JS) ==================== */
+        /* ==================== ANIMAÇÃO DE TEXTO (TYPED.JS) E VIDEOS ==================== */
         document.addEventListener('DOMContentLoaded', function() {
-            // Atraso para iniciar a digitação após a animação do logo
+            // Hero Video Autoplay Handler
+            const homeVideo = document.getElementById('home-video');
+            if (homeVideo) {
+                homeVideo.play().catch(error => {
+                    console.error("Autoplay do vídeo de fundo impedido:", error);
+                    // A imagem de fallback no CSS será exibida.
+                });
+            }
+
+            // Atraso para iniciar a digitação
             setTimeout(() => {
                 if(typeof Typed !== 'undefined'){
                     var options = {
@@ -1165,7 +1184,7 @@
                     };
                     var typed = new Typed('#typed-title', options);
                 }
-            }, 500); // Reduzido o atraso
+            }, 500);
         });
 
 
@@ -1213,16 +1232,6 @@
             });
         }
 
-
-        /* ==================== EFEITO PARALLAX NO HERO ==================== */
-        window.addEventListener('scroll', () => {
-            const parallaxBg = document.querySelector('.home__parallax-bg');
-            if(parallaxBg) {
-                const scrollPosition = window.pageYOffset;
-                parallaxBg.style.transform = `translateY(${scrollPosition * 0.3}px)`;
-            }
-        });
-
         /* ==================== BOTÕES FLUTUANTES COM SCROLL ==================== */
         const whatsappButton = document.querySelector('.whatsapp-button');
         const backToTopButton = document.querySelector('.back-to-top-button');
@@ -1237,26 +1246,6 @@
             }
         }
         window.addEventListener('scroll', toggleActionButtons);
-
-        /* ==================== SLIDER DE TESTEMUNHOS ==================== */
-        const slider = document.getElementById('testimonial-slider');
-        const prevBtn = document.getElementById('prev-testimonial');
-        const nextBtn = document.getElementById('next-testimonial');
-        
-        if(slider && prevBtn && nextBtn) {
-            let slideIndex = 0;
-
-            function showSlides(n) {
-                const slides = document.querySelectorAll('.testimonial__slide');
-                slideIndex += n;
-                if (slideIndex >= slides.length) {slideIndex = 0}
-                if (slideIndex < 0) {slideIndex = slides.length - 1}
-                slider.style.transform = `translateX(-${slideIndex * 100}%)`;
-            }
-
-            prevBtn.addEventListener('click', () => showSlides(-1));
-            nextBtn.addEventListener('click', () => showSlides(1));
-        }
 
         /* ==================== ANIMAÇÃO 3D NOS CARDS ==================== */
         const interactiveCards = document.querySelectorAll('.interactive-card');
@@ -1295,7 +1284,27 @@
             });
         });
 
+        /* ==================== VIDEO AUTOPLAY ON SCROLL ==================== */
+        const promoVideo = document.getElementById('promo-video');
+        if (promoVideo) {
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        var playPromise = promoVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.error("Autoplay do vídeo promocional impedido:", error);
+                            });
+                        }
+                    } else {
+                        promoVideo.pause();
+                    }
+                });
+            }, { threshold: 0.5 }); // Inicia quando 50% do vídeo estiver visível
+
+            videoObserver.observe(promoVideo);
+        }
+
     </script>
 </body>
 </html>
-
